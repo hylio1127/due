@@ -1,11 +1,12 @@
 package node
 
 import (
-	"github.com/dobyte/due/v2/cluster"
-	"github.com/dobyte/due/v2/utils/xcall"
 	"sync"
 	"sync/atomic"
 	"time"
+
+	"github.com/dobyte/due/v2/cluster"
+	"github.com/dobyte/due/v2/utils/xcall"
 )
 
 type Creator func(actor *Actor, args ...any) Processor
@@ -52,6 +53,10 @@ func (a *Actor) Spawn(creator Creator, opts ...ActorOption) (*Actor, error) {
 // Proxy 获取代理API
 func (a *Actor) Proxy() *Proxy {
 	return a.scheduler.node.proxy
+}
+
+func (a *Actor) Processor() Processor {
+	return a.processor
 }
 
 // Invoke 调用函数（Actor内线程安全）
